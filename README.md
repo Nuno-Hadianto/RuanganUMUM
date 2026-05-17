@@ -264,7 +264,7 @@ Setelah mengubah CORS, redeploy backend.
 4. Halaman preview horizontal/vertikal menampilkan data.
 5. Tidak ada error CORS di browser console.
 
-### G. Kapan Perlu VPS?
+### Catatan
 
 Pilih VPS jika butuh kontrol server penuh (Nginx reverse proxy, PM2, custom SSL/routing, multi-service kompleks, tuning performa mendalam).  
 Untuk kebutuhan standar aplikasi ini, Node.js Web App Hosting Hostinger biasanya sudah cukup.
