@@ -4,6 +4,7 @@ import { format } from "date-fns"
 import { id } from "date-fns/locale"
 import { ArrowLeft } from "lucide-react"
 import { useNavigate } from "react-router-dom"
+import { apiUrl } from "../lib/api"
 
 interface AgendaItem {
   no: number
@@ -27,7 +28,7 @@ export default function PreviewHorizontal() {
   // Fetch Data from API
   const fetchAgendas = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/agendas')
+      const response = await fetch(apiUrl('/api/agendas'))
       const data = await response.json()
       setAllAgendas(data)
       setLoading(false)

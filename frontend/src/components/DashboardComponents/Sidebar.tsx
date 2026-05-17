@@ -28,6 +28,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
 
   const handleLogout = () => {
     localStorage.removeItem('user')
+    localStorage.removeItem('token')
     navigate("/")
   }
 
@@ -155,4 +156,4 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
     </div>
     </>
   )
-}
+}

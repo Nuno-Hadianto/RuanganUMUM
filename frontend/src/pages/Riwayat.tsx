@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import { apiUrl } from "../lib/api"
 
 interface AgendaItem {
   id: number
@@ -19,7 +20,7 @@ export default function Riwayat() {
   useEffect(() => {
     const fetchAgendas = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/agendas')
+        const response = await fetch(apiUrl('/api/agendas'))
         const data = await response.json()
         // Sort by ID descending to show newest first (history)
         setAgendas([...data].reverse())

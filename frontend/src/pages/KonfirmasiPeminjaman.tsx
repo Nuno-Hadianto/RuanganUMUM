@@ -3,6 +3,7 @@ import "../index.css"
 import { ArrowLeft, ArrowRight, FileText } from "lucide-react"
 import { useNavigate, useLocation } from "react-router-dom"
 import AppNotification from "../components/Common/Notification"
+import { authFetch } from "../lib/api"
 
 export default function KonfirmasiPeminjaman() {
   const navigate = useNavigate()
@@ -83,17 +84,14 @@ export default function KonfirmasiPeminjaman() {
           <button
             onClick={async () => {
               const isEdit = (data as any).isEdit;
-              const url = isEdit 
-                ? `http://localhost:5000/api/agendas/${(data as any).id}` 
-                : 'http://localhost:5000/api/agendas';
+              const path = isEdit 
+                ? `/api/agendas/${(data as any).id}` 
+                : '/api/agendas';
               const method = isEdit ? 'PUT' : 'POST';
 
               try {
-                const response = await fetch(url, {
+                const response = await authFetch(path, {
                   method: method,
-                  headers: {
-                    'Content-Type': 'application/json',
-                  },
                   body: JSON.stringify(data),
                 })
 

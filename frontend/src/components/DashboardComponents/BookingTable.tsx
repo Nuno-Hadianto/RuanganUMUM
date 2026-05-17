@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import { ChevronLeft, ChevronRight, Check, Calendar, MapPin, Clock, User, Users } from "lucide-react"
 import ConfirmModal from "./ConfirmModal"
 import Toast from "./Toast"
+import { authFetch } from "../../lib/api"
 
 interface Props {
 statusFilter:string
@@ -15,7 +16,7 @@ selectedAgenda: any | null
 setSelectedAgenda: (agenda: any | null) => void
 }
 
-const AgendaCard = ({ item, index, realIndex, type, isSelected, onClick, onStatusChange, onConfirmStatus, currentStatus, statusColor }: any) => {
+const AgendaCard = ({ item, realIndex, type, isSelected, onClick, onStatusChange, onConfirmStatus, currentStatus, statusColor }: any) => {
   return (
     <div 
       onClick={onClick}
@@ -204,9 +205,8 @@ const applyStatusChange=async ()=>{
   const targetData = sourceData[index];
 
   try {
-    const response = await fetch(`http://localhost:5000/api/agendas/${targetData.id}/status`, {
+    const response = await authFetch(`/api/agendas/${targetData.id}/status`, {
       method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ status }),
     });
 
@@ -271,7 +271,6 @@ return (
             <AgendaCard 
               key={item.id}
               item={item}
-              index={index}
               realIndex={startBpkad + index}
               type="bpkad"
               isSelected={selectedAgenda?.id === item.id}
@@ -366,7 +365,6 @@ return (
             <AgendaCard 
               key={item.id}
               item={item}
-              index={index}
               realIndex={startPemkot + index}
               type="pemkot"
               isSelected={selectedAgenda?.id === item.id}

@@ -72,7 +72,8 @@ Base URL: `http://localhost:5000`
     "id": 1,
     "username": "admin",
     "role": "Administrator"
-  }
+  },
+  "token": "<jwt-token>"
 }
 ```
 
@@ -87,6 +88,7 @@ Base URL: `http://localhost:5000`
 
 - `POST /api/agendas`
 - Buat agenda baru.
+- Membutuhkan header `Authorization: Bearer <jwt-token>`.
 - Body JSON:
 
 ```json
@@ -113,6 +115,7 @@ Base URL: `http://localhost:5000`
 
 - `PUT /api/agendas/:id`
 - Update detail agenda berdasarkan `id`.
+- Membutuhkan header `Authorization: Bearer <jwt-token>`.
 - Body sama seperti `POST /api/agendas`.
 - Success (`200`): `{"message":"Agenda updated successfully"}`
 - Error:
@@ -121,6 +124,7 @@ Base URL: `http://localhost:5000`
 
 - `PUT /api/agendas/:id/status`
 - Update status agenda.
+- Membutuhkan header `Authorization: Bearer <jwt-token>`.
 - Body JSON:
 
 ```json
@@ -156,6 +160,8 @@ Konfigurasi DB via environment variable:
 - `DB_PASSWORD` (default: kosong)
 - `DB_NAME` (default: `bpkadumum`)
 - `PORT` (default: `5000`)
+- `JWT_SECRET` (wajib untuk login & verifikasi token)
+- `FRONTEND_URL` (opsional, pisahkan banyak domain dengan koma untuk CORS whitelist)
 
 ## 2) Frontend
 
@@ -167,10 +173,15 @@ npm run dev
 
 Frontend Vite biasanya aktif di `http://localhost:5173`.
 
+Tambahkan environment variable frontend:
+
+- `VITE_API_BASE_URL` (contoh: `http://localhost:5000` atau domain backend production)
+
 ## Catatan Teknis
 
-- URL API di frontend saat ini masih hardcoded ke `http://localhost:5000`.
-- Belum ada JWT/session middleware; login masih berbasis validasi langsung tabel `users`.
+- URL API frontend sekarang menggunakan `VITE_API_BASE_URL` dengan fallback local.
+- Backend menggunakan JWT untuk endpoint mutasi agenda (`POST/PUT`).
+- Login mendukung migrasi otomatis password lama plaintext ke bcrypt saat login pertama berhasil.
 - Data yang diberi status `Selesai` tidak tersimpan sebagai arsip, tetapi dihapus dari tabel `agenda_ruangan`.
 
 ## Tutorial Hosting di Hostinger

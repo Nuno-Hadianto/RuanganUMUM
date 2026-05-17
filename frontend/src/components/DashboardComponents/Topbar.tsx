@@ -1,5 +1,5 @@
 import logo from "../../assets/images/logo.png"
-import { Menu, User as UserIcon } from "lucide-react"
+import { Menu } from "lucide-react"
 import { useLocation } from "react-router-dom"
 
 interface TopbarProps {
@@ -18,9 +18,6 @@ export default function Topbar({ onMenuClick }: TopbarProps) {
   const location = useLocation()
   const currentTitle = routeTitles[location.pathname] || "Dashboard"
   
-  // Get user from localStorage
-  const user = JSON.parse(localStorage.getItem('user') || '{}')
-
   return (
     <div className="w-full">
 
